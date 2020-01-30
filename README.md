@@ -59,3 +59,6 @@ Get the complete SPF record for gmail.com (follow the redirects and includes)
 ```
 ### Result:
 ![Example 4](/static/example_04.jpg?raw=true "Results for example 4")
+
+# Credits
+This app can only work thanks to [dnspython](http://www.dnspython.org/)
