@@ -31,6 +31,7 @@ SOFTWARE.
 # 2020-01-27    1.0.0       Arnold              Initial version
 # 2020-01-30    1.1.0       Arnold      [ADD]   Option to do a "SPF-walk", this will follow redirects and includes and will 
 #                                               add an extra field 'spf_full' in the results with the full spf record.
+# 2020-01-30    1.1.1       Arnold      [FIX]   If no record was provided the error handle didn't go well.
 #
 ##################################################################
 import splunk.Intersplunk
@@ -119,11 +120,14 @@ def main():
                     if record is None or record.lower() == 'ptr':
                         # if no record is specified or a PTR is requested, check if we are dealing with an IP
                         if is_valid_ipv4_address(result[field]):
-                            is_ip   = True
+                            is_ip           = True
+                            search_record   = 'PTR'
                         elif is_valid_ipv6_address(result[field]):
-                            is_ip   = True
+                            is_ip           = True
+                            search_record   = 'PTR'
                         else:
-                            is_ip   = False
+                            is_ip           = False
+                            search_record   = 'A OR AAAA'
                             
                         if is_ip:
                             # we have a IP, do a reverse lookup and get the PTR record
@@ -192,10 +196,15 @@ def main():
                                     result['dnslookup'] = tmp
             
             if 'dnslookup' not in result:
-                if sub_record is None:
-                    result['dnslookup'] = '\'' + str(record).upper() + '\' record not found'
+                if 'search_record' in locals():
+                    error_record    = search_record
                 else:
-                    result['dnslookup'] = '\'' + str(record).upper() + '\'' + ' record with sub record \'' + str(sub_record).upper() + '\' not found'
+                    error_record    = record
+                    
+                if sub_record is None:
+                    result['dnslookup'] = '\'' + str(error_record).upper() + '\' record not found'
+                else:
+                    result['dnslookup'] = '\'' + str(error_record).upper() + '\'' + ' record with sub record \'' + str(sub_record).upper() + '\' not found'
                     
             if "\|/" in str(result['dnslookup']):
                 result['dnslookup'] = result['dnslookup'].split("\|/")
