@@ -22,7 +22,7 @@ Get the MX records voor gmail.com
 | fields - _time
 ```
 ### Result:
-![Example 1](/static/example_01.png?raw=true "Results for example 1")
+![Example 1](/static/example_01.jpg?raw=true "Results for example 1")
 
 ## Example 2
 Get the TXT records of google.com
@@ -34,7 +34,7 @@ Get the TXT records of google.com
 | fields - _time
 ```
 ### Result:
-![Example 2](/static/example_02.png?raw=true "Results for example 2")
+![Example 2](/static/example_02.jpg?raw=true "Results for example 2")
 
 ## Example 3
 Get the SPF record for gmail.com
@@ -46,7 +46,7 @@ Get the SPF record for gmail.com
 | fields - _time
 ```
 ### Result:
-![Example 3](/static/example_03.png?raw=true "Results for example 3")
+![Example 3](/static/example_03.jpg?raw=true "Results for example 3")
 
 ## Example 4
 Get the complete SPF record for gmail.com (follow the redirects and includes)
@@ -58,4 +58,4 @@ Get the complete SPF record for gmail.com (follow the redirects and includes)
 | fields - _time
 ```
 ### Result:
-![Example 4](/static/example_04.png?raw=true "Results for example 4")
+![Example 4](/static/example_04.jpg?raw=true "Results for example 4")
