@@ -60,5 +60,19 @@ Get the complete SPF record for gmail.com (follow the redirects and includes)
 ### Result:
 ![Example 4](/static/example_04.jpg?raw=true "Results for example 4")
 
+# Performance
+I did a small test on my VM with 100 domains.
+### Query:
+```
+| makeresults
+| eval src="google.com,youtube.com,facebook.com,baidu.com,wikipedia.org,twitter.com,yahoo.com,pornhub.com,instagram.com,xvideos.com,yandex.ru,ampproject.org,xnxx.com,amazon.com,live.com,vk.com,netflix.com,qq.com,whatsapp.com,mail.ru,reddit.com,yahoo.co.jp,google.com.br,bing.com,ok.ru,xhamster.com,sogou.com,ebay.com,bit.ly,twitch.tv,linkedin.com,samsung.com,sm.cn,msn.com,office.com,globo.com,taobao.com,pinterest.com,google.de,microsoft.com,accuweather.com,naver.com,aliexpress.com,fandom.com,quora.com,github.com,imdb.com,uol.com.br,docomo.ne.jp,youporn.com,bbc.co.uk,microsoftonline.com,paypal.com,google.fr,yidianzixun.com,wordpress.com,news.google.com,sohu.com,duckduckgo.com,google.co.uk,10086.cn,iqiyi.com,booking.com,amazon.co.jp,cricbuzz.com,taboola.com,amazon.de,cnn.com,jd.com,apple.com,google.it,bilibili.com,google.co.jp,livejasmin.com,tmall.com,news.yahoo.co.jp,youtu.be,tribunnews.com,amazon.co.uk,chaturbate.com,google.co.in,craigslist.org,imgur.com,bbc.com,fc2.com,tsyndicate.com,redtube.com,tumblr.com,foxnews.com,rakuten.co.jp,google.es,outbrain.com,discordapp.com,amazon.in,crptgate.com,weather.com,toutiao.com,youku.com,adobe.com,news.yandex.ru", src=split(src,",")
+| mvexpand src
+| dnslookup field=src 
+| fields - _time
+```
+### Result:
+![Performance](/static/performance.jpg?raw=true "Small scale performance test")
+
+
 # Credits
 This app can only work thanks to [dnspython](http://www.dnspython.org/)
