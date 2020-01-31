@@ -61,7 +61,7 @@ Get the complete SPF record for gmail.com (follow the redirects and includes)
 ![Example 4](/static/example_04.jpg?raw=true "Results for example 4")
 
 # Performance
-I did a small test on my VM with 100 domains.
+I did a small test on my VM with the top 100 domains based on data traffic, and requested all 'A' and 'AAAA' records for each of them.
 ### Query:
 ```
 | makeresults
