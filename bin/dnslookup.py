@@ -72,11 +72,13 @@ def get_sub_record(answer,sub_record):
     return return_subrecord
 
 def get_full_spf(start_record,full_spf=[]):
+    start_record = start_record.replace('" "','')
+    
     if 'include' in start_record or 'redirect' in start_record:
         # we have a record that we need to following
         p           = re.compile('(?:include:|redirect=)[^\s\"]*', re.IGNORECASE)
         match       = p.findall(start_record)
-        
+        #print(f'match: {match}')
         for redirect_include in match:
             redirect_include    = redirect_include.replace('include:','')
             redirect_include    = redirect_include.replace('redirect=','')
@@ -85,11 +87,12 @@ def get_full_spf(start_record,full_spf=[]):
             
             for result in results:
                 tmp  = get_sub_record(result,'SPF')
-                
+
                 if 'include' in str(tmp) or 'redirect' in str(tmp):
                     get_full_spf(tmp,full_spf)
                 else:
-                    full_spf.append(tmp)
+                    if tmp is not None:
+                        full_spf.append(tmp)
     else:
         full_spf.append(start_record)
         
